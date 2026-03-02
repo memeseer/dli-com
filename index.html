@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dlicom Community | Leaderboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&family=Inter:wght@400;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="bg-gradient"></div>
+
+    <div class="container">
+        <header>
+            <div class="logo-container">
+                <img src="media/logo.svg" alt="Dlicom" class="logo">
+            </div>
+        </header>
+
+        <section class="hero">
+            <img src="media/maskot.svg" alt="" class="mascot-hero">
+            <h1>Dlicom Community</h1>
+            <p>Become a leader in the Dlicom community. Engage in Discord and Twitter, earn points, and climb the
+                leaderboard!</p>
+            <div class="hero-meta">
+                <span class="update-tag">update every 48h</span>
+                <div class="dev-tag">dev - <a href="https://x.com/Makssay_eth" target="_blank">Makssay_eth</a></div>
+            </div>
+            <button id="points-info-btn" class="info-btn">Points Info</button>
+        </section>
+
+        <div class="tabs-container">
+            <div class="tabs">
+                <button class="tab-btn active" data-tab="general">General</button>
+                <button class="tab-btn" data-tab="discord">Discord</button>
+                <button class="tab-btn" data-tab="twitter">Twitter</button>
+            </div>
+        </div>
+
+        <div class="search-container">
+            <input type="text" id="search-input" placeholder="Search by Discord username..." autocomplete="off">
+        </div>
+
+        <div class="leaderboard-container">
+            <div id="table-header" class="table-header">
+                <!-- Header will be dynamic -->
+            </div>
+            <div id="leaderboard-list" class="leaderboard-list">
+                <div style="padding: 2rem; text-align: center; color: var(--text-dim);">Loading community data...</div>
+            </div>
+
+            <!-- Pagination Controls -->
+            <div id="pagination" class="pagination">
+                <!-- Controls injected here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- User Profile Modal -->
+    <div id="user-modal" class="modal">
+        <div class="modal-content">
+            <button class="close-modal">&times;</button>
+            <div id="modal-body">
+                <!-- Profile content injected here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Points Info Modal -->
+    <div id="info-modal" class="modal">
+        <div class="modal-content info-content">
+            <button class="close-info-modal close-modal">&times;</button>
+            <div class="info-body">
+                <h2>Points Information</h2>
+                <p class="disclaimer">This leaderboard is <strong>unofficial</strong>. Points are calculated and
+                    displayed for community convenience and engagement tracking.</p>
+
+                <div class="points-grid-info">
+                    <div class="info-card">
+                        <h3>Discord</h3>
+                        <ul>
+                            <li><strong>1 Message</strong> = 1 Point</li>
+                        </ul>
+                    </div>
+                    <div class="info-card">
+                        <h3>Twitter (X)</h3>
+                        <ul>
+                            <li><strong>1 Post</strong> = 100 Points</li>
+                            <li><strong>1 Like</strong> = 10 Points</li>
+                            <li><strong>1 Reply</strong> = 20 Points</li>
+                            <li><strong>1 Retweet</strong> = 50 Points</li>
+                            <li><strong>1 Quote</strong> = 50 Points</li>
+                            <li><strong>1 View</strong> = 2 Points</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

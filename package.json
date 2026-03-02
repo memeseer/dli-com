@@ -1,0 +1,7 @@
+{
+    "name": "dlicom-community",
+    "version": "1.0.0",
+    "scripts": {
+        "dev": "npx serve ."
+    }
+}
