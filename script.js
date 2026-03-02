@@ -140,6 +140,7 @@ async function loadData() {
                     <div>RT + Q</div>
                     <div>Views</div>
                     <div>X PTS</div>
+                    <div>TOTAL PTS</div>
                 `;
             }
         }
@@ -180,7 +181,8 @@ async function loadData() {
                     <div class="stat-value">${ts.reply}</div>
                     <div class="stat-value">${user.rtPlusQuotes}</div>
                     <div class="stat-value">${ts.views.toLocaleString()}</div>
-                    <div class="stat-value points-value">${user.twitterPoints.toLocaleString()}</div>
+                    <div class="stat-value stat-dim">${user.twitterPoints.toLocaleString()}</div>
+                    <div class="stat-value points-value">${user.totalPoints.toLocaleString()}</div>
                 `;
             }
 

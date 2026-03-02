@@ -278,7 +278,7 @@ header {
 }
 
 .grid-twitter {
-    grid-template-columns: 80px 240px repeat(5, 1fr) 180px;
+    grid-template-columns: 80px 240px repeat(6, 1fr) 180px;
     text-align: center;
 }
 
