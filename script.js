@@ -2,6 +2,7 @@ let allUsers = [];
 let allPosts = [];
 let currentTab = 'general';
 let searchQuery = '';
+let channelFilterQuery = '';
 let currentPage = 1;
 const itemsPerPage = 20;
 
@@ -13,6 +14,7 @@ async function loadData() {
     const modal = document.getElementById('user-modal');
     const closeBtn = document.querySelector('.close-modal');
     const searchInput = document.getElementById('search-input');
+    const channelFilter = document.getElementById('channel-filter');
 
     // Info Modal elements
     const infoModal = document.getElementById('info-modal');
@@ -84,6 +86,42 @@ async function loadData() {
             };
         });
 
+        // Consolidate Channel Groups for Clean UI
+        const channelGroups = {
+            'Global Chat': ['💬╏general', 'chat'],
+            'Russian Chat': ['чатик', '🇷🇺╏русский'],
+            'Indian Chat': ['चैट', '🇮🇳╏indian'],
+            'Ukrainian Chat': ['чатік', '🇺🇦╏ukraine'],
+            'Vietnamese Chat': ['trò-chuyện', '🇻🇳╏tiếng-việt'],
+            'Arabic Chat': ['🇵🇸╏العربية'],
+            'Nigerian Chat': ['🇳🇬╏nigerian'],
+            'Korean Chat': ['🇰🇷╏корейский'],
+            'g-dlic': ['🌞╏g-dlic'],
+            'creators': ['🎨╏creators']
+        };
+
+        const groupDisplayNames = {
+            'Global Chat': '💬 Global Chat',
+            'Russian Chat': '🇷🇺 Русский чат',
+            'Indian Chat': '🇮🇳 Indian Chat',
+            'Ukrainian Chat': '🇺🇦 Український чат',
+            'Vietnamese Chat': '🇻🇳 Vietnamese Chat',
+            'Arabic Chat': '🇵🇸 العربية',
+            'Nigerian Chat': '🇳🇬 Nigerian',
+            'Korean Chat': '🇰🇷 Korean Chat',
+            'g-dlic': '🌞 g-dlic',
+            'creators': '🎨 creators'
+        };
+
+        Object.keys(channelGroups).forEach(groupKey => {
+            const option = document.createElement('option');
+            option.value = groupKey; // The group name
+            option.textContent = groupDisplayNames[groupKey];
+            channelFilter.appendChild(option);
+        });
+
+        window.channelGroups = channelGroups; // Make accessible to render()
+
         function formatTwitterDate(dateStr) {
             if (!dateStr) return '';
             try {
@@ -139,6 +177,7 @@ async function loadData() {
                     <div>Replies</div>
                     <div>RT + Q</div>
                     <div>Views</div>
+                    <div>Favorite</div>
                     <div>X PTS</div>
                     <div>TOTAL PTS</div>
                 `;
@@ -181,6 +220,7 @@ async function loadData() {
                     <div class="stat-value">${ts.reply}</div>
                     <div class="stat-value">${user.rtPlusQuotes}</div>
                     <div class="stat-value">${ts.views.toLocaleString()}</div>
+                    <div class="stat-value" title="${user.favoriteChannel}">${formatChannelName(user.favoriteChannel).substring(0, 10)}..</div>
                     <div class="stat-value stat-dim">${user.twitterPoints.toLocaleString()}</div>
                     <div class="stat-value points-value">${user.totalPoints.toLocaleString()}</div>
                 `;
@@ -222,7 +262,17 @@ async function loadData() {
             });
 
             // 3. Filter the ranked list
-            let filtered = sortedAll.filter(u => u.user_name.toLowerCase().includes(searchQuery.toLowerCase()));
+            let filtered = sortedAll.filter(u => {
+                const matchesSearch = u.user_name.toLowerCase().includes(searchQuery.toLowerCase());
+
+                let matchesChannel = true;
+                if (channelFilterQuery) {
+                    const groupIds = window.channelGroups[channelFilterQuery] || [channelFilterQuery];
+                    matchesChannel = groupIds.includes(u.favoriteChannel);
+                }
+
+                return matchesSearch && matchesChannel;
+            });
 
             const totalItems = filtered.length;
             const totalPages = Math.ceil(totalItems / itemsPerPage);
@@ -363,6 +413,12 @@ async function loadData() {
         searchInput.addEventListener('input', (e) => {
             searchQuery = e.target.value;
             currentPage = 1; // Reset to page 1 on search
+            render();
+        });
+
+        channelFilter.addEventListener('change', (e) => {
+            channelFilterQuery = e.target.value;
+            currentPage = 1;
             render();
         });
 

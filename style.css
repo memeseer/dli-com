@@ -224,10 +224,37 @@ header {
 .search-container {
     display: flex;
     justify-content: center;
+    align-items: center;
+    gap: 1rem;
     margin-bottom: 3rem;
-    max-width: 500px;
+    max-width: 800px;
     margin-left: auto;
     margin-right: auto;
+}
+
+#channel-filter {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    padding: 1.2rem;
+    border-radius: 20px;
+    color: var(--white);
+    font-family: var(--font-main);
+    font-size: 1rem;
+    outline: none;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+    cursor: pointer;
+    min-width: 200px;
+}
+
+#channel-filter:focus {
+    border-color: var(--primary-bright);
+    background: rgba(59, 76, 255, 0.05);
+}
+
+#channel-filter option {
+    background: #08080c;
+    color: white;
 }
 
 #search-input {
@@ -278,7 +305,7 @@ header {
 }
 
 .grid-twitter {
-    grid-template-columns: 80px 240px repeat(6, 1fr) 180px;
+    grid-template-columns: 80px 240px repeat(6, 1fr) 200px 180px;
     text-align: center;
 }
 
